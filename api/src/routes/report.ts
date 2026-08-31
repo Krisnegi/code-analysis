@@ -13,6 +13,14 @@ router.get('/report/:id', async (req: Request, res: Response) => {
     let reportPath = ''
     const trajectoriesDir = path.resolve(__dirname, '../../../trajectories')
 
+    // 1. First check Redis for cached report JSON
+    const cachedReport = await redisConnection.get(`job:${jobId}:report`)
+    if (cachedReport) {
+      res.json(JSON.parse(cachedReport))
+      return
+    }
+
+    // 2. Fall back to file system trajectories search
     if (repoUrl) {
       const repoSlug = repoUrl.split('github.com/')[1].replace('/', '_')
       const targetPath = path.join(trajectoriesDir, repoSlug, 'report.json')

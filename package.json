@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "docker compose up --build",
-    "build": "pnpm --filter api build && pnpm --filter worker build && pnpm --filter frontend build",
-    "benchmark": "pnpm --filter worker benchmark",
-    "test": "pnpm --filter api test && pnpm --filter worker test"
+    "build": "pnpm --filter api build && pnpm --filter worker build && pnpm --filter frontend build"
   },
-  "engines": {
-    "node": ">=20.0.0"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "msgpackr-extract"
+    ]
   }
 }

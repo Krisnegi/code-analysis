@@ -37,4 +37,21 @@ router.post('/jobs/:id/skip-test', async (req: Request, res: Response) => {
   }
 })
 
+router.post('/jobs/:id/cancel', async (req: Request, res: Response) => {
+  try {
+    const jobId = req.params.id
+    const status = await redisConnection.get(`job:${jobId}:status`)
+
+    if (status === 'awaiting_approval') {
+      await redisConnection.set(`approval:${jobId}`, 'skipped')
+    }
+
+    await redisConnection.set(`job:${jobId}:status`, 'cancelled')
+    await redisConnection.set(`job:${jobId}:step`, 'Job cancelled by user')
+    res.json({ success: true, jobId, status: 'cancelled' })
+  } catch (err: any) {
+    res.status(500).json({ error: `Failed to cancel job: ${err.message}` })
+  }
+})
+
 export default router

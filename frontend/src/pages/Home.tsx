@@ -1,22 +1,48 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { RepoInput } from '../components/RepoInput'
 import { ApprovalGate } from '../components/ApprovalGate'
 import { JobStatusResponse } from '@code-analysis/shared'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ArrowRight, X, Cpu, CheckCircle2, ShieldAlert, AlertCircle } from 'lucide-react'
+
+interface TrackedJob {
+  jobId: string
+  repoUrl: string
+  statusData?: JobStatusResponse
+}
 
 export const Home: React.FC = () => {
   const navigate = useNavigate()
-  const [jobId, setJobId] = useState<string | null>(null)
-  const [statusResponse, setStatusResponse] = useState<JobStatusResponse | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [trackedJobs, setTrackedJobs] = useState<TrackedJob[]>([])
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Load tracked jobs from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('trackedJobs')
+      if (saved) {
+        const parsed: TrackedJob[] = JSON.parse(saved)
+        setTrackedJobs(parsed)
+      }
+    } catch {
+      // Ignore parse error
+    }
+  }, [])
+
+  // Sync tracked jobs to localStorage
+  const saveTrackedJobs = (jobs: TrackedJob[]) => {
+    setTrackedJobs(jobs)
+    try {
+      localStorage.setItem('trackedJobs', JSON.stringify(jobs))
+    } catch {
+      // Ignore write error
+    }
+  }
+
   const handleAnalyze = async (repoUrl: string, mode: 'agent' | 'baseline') => {
-    setLoading(true)
+    setSubmitting(true)
     setError(null)
-    setJobId(null)
-    setStatusResponse(null)
 
     if (mode === 'baseline') {
       try {
@@ -34,7 +60,7 @@ export const Home: React.FC = () => {
       } catch (err: any) {
         setError(err.message)
       } finally {
-        setLoading(false)
+        setSubmitting(false)
       }
       return
     }
@@ -47,46 +73,68 @@ export const Home: React.FC = () => {
       })
       const data = await res.json()
       if (res.ok) {
-        setJobId(data.jobId)
+        const newJob: TrackedJob = { jobId: data.jobId, repoUrl }
+        saveTrackedJobs([newJob, ...trackedJobs.filter((j) => j.jobId !== data.jobId)])
       } else {
         setError(data.error || 'Failed to submit analysis job')
-        setLoading(false)
       }
     } catch (err: any) {
       setError(err.message)
-      setLoading(false)
+    } finally {
+      setSubmitting(false)
     }
   }
 
+  const removeJob = async (jobId: string) => {
+    const target = trackedJobs.find((j) => j.jobId === jobId)
+    const status = target?.statusData?.status
+
+    if (status && status !== 'done' && status !== 'failed') {
+      try {
+        await fetch(`/api/jobs/${jobId}/cancel`, { method: 'POST' })
+      } catch {
+        // Ignore network error on cancel
+      }
+    }
+
+    const updated = trackedJobs.filter((j) => j.jobId !== jobId)
+    saveTrackedJobs(updated)
+  }
+
+  // Poll all active jobs every 2 seconds
   useEffect(() => {
-    if (!jobId) return
+    if (trackedJobs.length === 0) return
 
     const interval = setInterval(async () => {
-      try {
-        const res = await fetch(`/api/status/${jobId}`)
-        const data: JobStatusResponse = await res.json()
-        setStatusResponse(data)
+      const updatedJobs = await Promise.all(
+        trackedJobs.map(async (job) => {
+          // Don't poll completed jobs endlessly
+          if (job.statusData?.status === 'done' || job.statusData?.status === 'failed') {
+            return job
+          }
 
-        if (data.status === 'done') {
-          clearInterval(interval)
-          setLoading(false)
-          navigate(`/report/${jobId}`)
-        } else if (data.status === 'failed') {
-          clearInterval(interval)
-          setLoading(false)
-          setError(data.error || 'Job failed')
-        }
-      } catch {
-        // Retry silently
-      }
+          try {
+            const res = await fetch(`/api/status/${job.jobId}`)
+            if (res.ok) {
+              const statusData: JobStatusResponse = await res.json()
+              return { ...job, statusData }
+            }
+          } catch {
+            // Keep existing status on network glitch
+          }
+          return job
+        })
+      )
+
+      saveTrackedJobs(updatedJobs)
     }, 2000)
 
     return () => clearInterval(interval)
-  }, [jobId, navigate])
+  }, [trackedJobs])
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <RepoInput onAnalyze={handleAnalyze} loading={loading} />
+      <RepoInput onAnalyze={handleAnalyze} submitting={submitting} />
 
       {error && (
         <div className="max-w-3xl mx-auto mb-8 bg-red-500/10 border border-red-500/30 text-red-400 p-4 rounded-xl text-sm text-center">
@@ -94,33 +142,104 @@ export const Home: React.FC = () => {
         </div>
       )}
 
-      {statusResponse?.status === 'awaiting_approval' && jobId && (
-        <div className="max-w-3xl mx-auto">
-          <ApprovalGate
-            jobId={jobId}
-            context={statusResponse.approvalContext}
-            onDecision={() => {}}
-          />
-        </div>
-      )}
-
-      {loading && statusResponse && statusResponse.status !== 'awaiting_approval' && (
-        <div className="max-w-3xl mx-auto bg-[#121824] border border-[#1f293d] p-6 rounded-2xl shadow-xl flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
-              <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
-            </div>
-            <div>
-              <span className="text-xs text-slate-400 block font-mono">Job ID: {jobId}</span>
-              <h4 className="text-base font-bold text-white">
-                {statusResponse.currentStep || 'Agent analyzing repository...'}
-              </h4>
-            </div>
+      {/* Multi-Job Active Queue Control Center */}
+      {trackedJobs.length > 0 && (
+        <div className="max-w-3xl mx-auto space-y-6">
+          <div className="flex items-center justify-between border-b border-[#1f293d] pb-4">
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <Cpu className="w-5 h-5 text-blue-400" />
+              Active Analysis Queue ({trackedJobs.length})
+            </h3>
+            <span className="text-xs text-slate-400">
+              Real-time multi-repo status poller
+            </span>
           </div>
 
-          <span className="text-xs px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold capitalize">
-            {statusResponse.status}
-          </span>
+          {trackedJobs.map((job) => {
+            const status = job.statusData?.status || 'pending'
+            const currentStep = job.statusData?.currentStep || 'Initializing analysis...'
+
+            return (
+              <div
+                key={job.jobId}
+                className="bg-[#121824] border border-[#1f293d] rounded-2xl p-6 shadow-xl space-y-4 transition-all"
+              >
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#1f293d]/60 pb-4">
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-base font-bold text-white break-all">
+                        {job.repoUrl.replace('https://github.com/', '')}
+                      </span>
+                      <span className="text-xs font-mono text-slate-500">
+                        ({job.jobId})
+                      </span>
+                    </div>
+                    <span className="text-xs text-slate-400 mt-1 block">
+                      {currentStep}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center space-x-3 self-end sm:self-auto">
+                    {/* Status Badge */}
+                    <span
+                      className={`text-xs px-3 py-1 rounded-full border font-semibold capitalize flex items-center gap-1.5 ${
+                        status === 'done'
+                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                          : status === 'awaiting_approval'
+                          ? 'bg-amber-500/10 text-amber-400 border-amber-500/40 animate-pulse'
+                          : status === 'failed'
+                          ? 'bg-red-500/10 text-red-400 border-red-500/30'
+                          : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                      }`}
+                    >
+                      {status === 'done' ? (
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      ) : status === 'awaiting_approval' ? (
+                        <ShieldAlert className="w-3.5 h-3.5" />
+                      ) : status === 'failed' ? (
+                        <AlertCircle className="w-3.5 h-3.5" />
+                      ) : (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      )}
+                      <span>{status.replace('_', ' ')}</span>
+                    </span>
+
+                    {/* View Report Button if done */}
+                    {status === 'done' && (
+                      <Link
+                        to={`/report/${job.jobId}`}
+                        className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center space-x-1"
+                      >
+                        <span>View Report</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
+
+                    {/* Remove button */}
+                    <button
+                      onClick={() => removeJob(job.jobId)}
+                      className="p-1 rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-800"
+                      title="Remove from queue"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Approval Gate Card if awaiting approval */}
+                {status === 'awaiting_approval' && (
+                  <ApprovalGate
+                    jobId={job.jobId}
+                    context={job.statusData?.approvalContext}
+                    onDecision={() => {
+                      // Status will update automatically on next poll
+                    }}
+                  />
+                )}
+              </div>
+            )
+          })}
         </div>
       )}
     </div>

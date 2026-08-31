@@ -31,11 +31,11 @@ export const RadarChartComponent: React.FC<RadarProps> = ({ report }) => {
         Comparison across all 6 quality rubric dimensions (0 to 10 points each).
       </p>
 
-      <div className="h-[320px] sm:h-[380px] w-full">
+      <div className="h-[340px] sm:h-[380px] w-full px-2">
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
+          <RadarChart cx="50%" cy="50%" outerRadius="55%" data={data} margin={{ top: 10, right: 40, bottom: 10, left: 40 }}>
             <PolarGrid stroke="#1f293d" />
-            <PolarAngleAxis dataKey="category" stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 12 }} />
+            <PolarAngleAxis dataKey="category" stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 11 }} />
             <PolarRadiusAxis angle={30} domain={[0, 10]} stroke="#475569" />
             <Radar
               name="Score"

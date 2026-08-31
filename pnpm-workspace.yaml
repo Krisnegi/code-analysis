@@ -1,5 +1,9 @@
 packages:
-  - 'shared'
   - 'api'
   - 'worker'
   - 'frontend'
+  - 'shared'
+
+onlyBuiltDependencies:
+  - esbuild
+  - msgpackr-extract

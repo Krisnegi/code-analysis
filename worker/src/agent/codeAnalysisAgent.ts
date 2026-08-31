@@ -272,6 +272,7 @@ Provide a brief self-critique narrative verifying if the total score ${scores.to
     }
     fs.writeFileSync(path.join(repoTrajDir, 'report.json'), JSON.stringify(report, null, 2))
 
+    await redisConnection.set(`job:${jobId}:report`, JSON.stringify(report))
     await redisConnection.set(`job:${jobId}:status`, 'done')
     await redisConnection.set(`job:${jobId}:step`, 'Analysis complete')
 

@@ -20,7 +20,7 @@ export const App: React.FC = () => {
 
         <footer className="border-t border-[#1f293d] py-6 text-center text-xs text-slate-500 bg-[#0a0d14]">
           <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span>Built for micro1 Agentic Workflows Hackathon</span>
+            <span>Powered by Autonomous Agentic Workflows</span>
             <div className="flex items-center space-x-4">
               <span>Gemini 2.0 Flash Primary</span>
               <span>•</span>

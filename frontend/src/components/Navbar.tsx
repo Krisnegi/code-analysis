@@ -21,8 +21,8 @@ export const Navbar: React.FC = () => {
             </div>
             <div>
               <span className="font-bold text-lg text-white tracking-tight">CodeAnalysis.AI</span>
-              <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 hidden sm:inline-block">
-                micro1 Agent
+              <span className="ml-2 text-xs px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 hidden sm:inline-block font-semibold">
+                AI Agent
               </span>
             </div>
           </Link>

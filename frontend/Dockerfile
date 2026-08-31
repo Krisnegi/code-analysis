@@ -3,13 +3,16 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY shared/package.json ./shared/
+COPY api/package.json ./api/
+COPY worker/package.json ./worker/
 COPY frontend/package.json ./frontend/
 
-RUN npm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm config set minimum-release-age 0 && pnpm install --no-frozen-lockfile --ignore-scripts
 
 COPY shared ./shared
 COPY frontend ./frontend
 
+RUN pnpm --filter @code-analysis/shared build
 RUN pnpm --filter @code-analysis/frontend build
 
 FROM nginx:alpine AS runner

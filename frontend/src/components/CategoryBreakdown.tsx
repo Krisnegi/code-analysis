@@ -46,19 +46,19 @@ export const CategoryBreakdown: React.FC<CategoryBreakdownProps> = ({ report }) 
               className="bg-[#121824] border border-[#1f293d] hover:border-blue-500/30 rounded-2xl p-6 transition-all shadow-lg flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-blue-400" />
+                <div className="flex items-start justify-between gap-2 mb-4">
+                  <div className="flex items-start space-x-2.5 min-w-0 flex-1 pr-2">
+                    <div className="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                      <Icon className="w-4.5 h-4.5 text-blue-400" />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-white text-base">{cat.title}</h4>
-                      <span className="text-xs text-slate-400">{cat.desc}</span>
+                    <div className="min-w-0">
+                      <h4 className="font-bold text-white text-base leading-snug break-words">{cat.title}</h4>
+                      <span className="text-xs text-slate-400 block mt-0.5">{cat.desc}</span>
                     </div>
                   </div>
 
-                  <span className={`text-sm font-bold px-3 py-1 rounded-xl border ${scoreBadgeColor}`}>
-                    {score !== null ? `${score} / 10` : 'N/A'}
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-xl border whitespace-nowrap shrink-0 ${scoreBadgeColor}`}>
+                    {score !== null ? `${score}/10` : 'N/A'}
                   </span>
                 </div>
 

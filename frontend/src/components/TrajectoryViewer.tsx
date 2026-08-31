@@ -22,7 +22,7 @@ export const TrajectoryViewer: React.FC<TrajectoryProps> = ({ steps }) => {
         <div>
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
             <Terminal className="w-5 h-5 text-blue-400" />
-            Agent Trajectory Log (PDF Deliverable 04)
+            Agent Execution Trajectory Log
           </h3>
           <p className="text-xs text-slate-400 mt-1">
             Step-by-step record of agent thoughts, tool calls, human checkpoints, and LLM retries ({steps.length} steps).

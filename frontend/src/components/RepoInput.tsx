@@ -3,10 +3,10 @@ import { Search, Sparkles, Sliders, ArrowRight } from 'lucide-react'
 
 interface RepoInputProps {
   onAnalyze: (url: string, mode: 'agent' | 'baseline') => void
-  loading: boolean
+  submitting?: boolean
 }
 
-export const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, loading }) => {
+export const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, submitting = false }) => {
   const [url, setUrl] = useState('')
   const [mode, setMode] = useState<'agent' | 'baseline'>('agent')
 
@@ -21,6 +21,7 @@ export const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, loading }) => {
     e.preventDefault()
     if (url.trim()) {
       onAnalyze(url.trim(), mode)
+      setUrl('')
     }
   }
 
@@ -80,10 +81,10 @@ export const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, loading }) => {
 
           <button
             type="submit"
-            disabled={loading || !url.trim()}
+            disabled={submitting || !url.trim()}
             className="w-full sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm transition-all shadow-lg shadow-blue-600/25 flex items-center justify-center space-x-2 disabled:opacity-50"
           >
-            <span>{loading ? 'Initializing...' : 'Analyze Repository'}</span>
+            <span>{submitting ? 'Queuing...' : 'Analyze Repository'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -96,7 +97,6 @@ export const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, loading }) => {
             <button
               key={preset.url}
               onClick={() => {
-                setUrl(preset.url)
                 onAnalyze(preset.url, mode)
               }}
               className="text-xs px-3 py-1.5 rounded-lg bg-[#0a0d14] hover:bg-slate-800 text-slate-300 border border-[#1f293d] transition-all hover:border-slate-600"

@@ -63,7 +63,7 @@ export const ApprovalGate: React.FC<ApprovalGateProps> = ({ jobId, context, onDe
               </span>
             </h3>
             <p className="text-sm text-slate-400 mt-0.5">
-              PDF Ground Rule 04: The agent requires human verification before executing code.
+              Safety Checkpoint: Automated test execution requires human approval before running sandboxed code.
             </p>
           </div>
         </div>
