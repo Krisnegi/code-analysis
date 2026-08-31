@@ -1,0 +1,124 @@
+{
+  "results": [
+    {
+      "repoId": "repo1",
+      "name": "expressjs/express",
+      "url": "https://github.com/expressjs/express",
+      "score": 39,
+      "report": {
+        "jobId": "job_expressjs_express_90f3fb47",
+        "repoUrl": "https://github.com/expressjs/express",
+        "totalScore": 39,
+        "categories": {
+          "codeQuality": {
+            "score": 10,
+            "evidence": [
+              "0 lint errors found",
+              "Top complex files: ./test/app.router.js, ./lib/response.js, ./test/res.sendFile.js"
+            ]
+          },
+          "testCoverage": {
+            "score": 0,
+            "evidence": [
+              "Framework: npm/jest/vitest, 0% coverage",
+              "Passed: 0, Failed: 0"
+            ]
+          },
+          "architecture": {
+            "score": 6,
+            "evidence": [
+              "Total repo files: 183, Language: JavaScript/TypeScript"
+            ]
+          },
+          "dependencies": {
+            "score": 10,
+            "evidence": [
+              "44 dependencies, 0 critical CVEs",
+              "Security risk: low (0 secrets flagged)"
+            ]
+          },
+          "maintainability": {
+            "score": 6,
+            "evidence": [
+              "Commit frequency: 17/90days",
+              "Contributors: 10, Bus factor: 0.41",
+              "Stale PRs: 6, Stale issues: 0"
+            ]
+          },
+          "documentation": {
+            "score": 7,
+            "evidence": [
+              "README present"
+            ]
+          }
+        },
+        "scoringMethod": "agent",
+        "selfCritiqueCompleted": true,
+        "timestamp": "2026-08-31T10:33:24.413Z"
+      }
+    },
+    {
+      "repoId": "repo2",
+      "name": "pallets/flask",
+      "url": "https://github.com/pallets/flask",
+      "score": 41,
+      "report": null
+    },
+    {
+      "repoId": "repo3",
+      "name": "axios/axios",
+      "url": "https://github.com/axios/axios",
+      "score": 37,
+      "report": null
+    },
+    {
+      "repoId": "repo4",
+      "name": "lodash/lodash",
+      "url": "https://github.com/lodash/lodash",
+      "score": 39,
+      "report": null
+    },
+    {
+      "repoId": "repo5",
+      "name": "sindresorhus/is",
+      "url": "https://github.com/sindresorhus/is",
+      "score": 48,
+      "report": null
+    },
+    {
+      "repoId": "repo6",
+      "name": "facebook/react",
+      "url": "https://github.com/facebook/react",
+      "score": 28,
+      "report": null
+    },
+    {
+      "repoId": "repo7",
+      "name": "huggingface/transformers",
+      "url": "https://github.com/huggingface/transformers",
+      "score": 30,
+      "report": null
+    },
+    {
+      "repoId": "repo8",
+      "name": "gin-gonic/gin",
+      "url": "https://github.com/gin-gonic/gin",
+      "score": 33,
+      "report": null
+    },
+    {
+      "repoId": "repo9",
+      "name": "BurntSushi/ripgrep",
+      "url": "https://github.com/BurntSushi/ripgrep",
+      "score": 36,
+      "report": null
+    },
+    {
+      "repoId": "repo10",
+      "name": "torvalds/linux",
+      "url": "https://github.com/torvalds/linux",
+      "score": 22,
+      "report": null
+    }
+  ]
+}
