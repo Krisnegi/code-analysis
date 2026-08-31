@@ -1,7 +1,7 @@
-# Code Analysis Agent — Is This Repository Actually Good? 🚀
+# Code Analysis Agent — Autonomous Quality & Health Evaluator for Any GitHub Repository 🚀
 
 > **micro1 Hackathon Project**: Autonomous multi-stage repository analyzer built with **LangChain.js**, **Docker Sandbox Isolation**, **Express.js**, and **React (Vite)**.
-> Evaluates GitHub codebases across 6 rigorous technical categories and produces auditable, reproducible quality reports.
+> Evaluates target GitHub codebases across 6 rigorous technical categories and produces auditable, reproducible quality reports.
 
 ---
 
