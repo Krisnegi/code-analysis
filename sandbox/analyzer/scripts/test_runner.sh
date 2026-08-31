@@ -20,8 +20,7 @@ COVERAGE="0%"
 
 if [ -f "package.json" ]; then
   FRAMEWORK="npm/jest/vitest"
-  npm install --ignore-scripts --no-audit --no-fund --silent 2>/dev/null || true
-  TEST_OUT=$(timeout 30 npm test 2>&1 || true)
+  TEST_OUT=$(timeout 20 npm test -- --no-color 2>&1 || true)
   if echo "$TEST_OUT" | grep -qi "pass"; then
     TEST_PASSED=$(echo "$TEST_OUT" | grep -ci "pass" || true)
   fi
@@ -30,7 +29,7 @@ if [ -f "package.json" ]; then
   fi
 elif [ -f "pytest.ini" ] || [ -f "setup.py" ] || [ -f "requirements.txt" ]; then
   FRAMEWORK="pytest"
-  TEST_OUT=$(timeout 30 pytest --junitxml=report.xml 2>&1 || true)
+  TEST_OUT=$(timeout 20 pytest --junitxml=report.xml 2>&1 || true)
   if echo "$TEST_OUT" | grep -qi "passed"; then
     TEST_PASSED=$(echo "$TEST_OUT" | grep -oE '[0-9]+ passed' | awk '{print $1}' || echo 0)
   fi
