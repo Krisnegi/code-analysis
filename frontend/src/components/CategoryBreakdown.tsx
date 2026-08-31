@@ -8,7 +8,7 @@ interface CategoryBreakdownProps {
 
 export const CategoryBreakdown: React.FC<CategoryBreakdownProps> = ({ report }) => {
   const categoryConfigs = [
-    { key: 'codeQuality', title: 'Code Quality', icon: Code2, desc: 'ESLint/Pylint errors, complexity' },
+    { key: 'codeQuality', title: 'Code Quality', icon: Code2, desc: 'ESLint/Pylint errors & complexity' },
     { key: 'testCoverage', title: 'Test Coverage', icon: TestTube2, desc: 'Pass/fail rate & coverage %' },
     { key: 'architecture', title: 'Architecture', icon: Layers, desc: 'Modularity & file organization' },
     { key: 'dependencies', title: 'Dependencies & Security', icon: PackageCheck, desc: 'CVE audit & secret detection' },
@@ -46,24 +46,32 @@ export const CategoryBreakdown: React.FC<CategoryBreakdownProps> = ({ report }) 
               className="bg-[#121824] border border-[#1f293d] hover:border-blue-500/30 rounded-2xl p-6 transition-all shadow-lg flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-start justify-between gap-2 mb-4">
-                  <div className="flex items-start space-x-2.5 min-w-0 flex-1 pr-2">
-                    <div className="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                      <Icon className="w-4.5 h-4.5 text-blue-400" />
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="font-bold text-white text-base leading-snug break-words">{cat.title}</h4>
-                      <span className="text-xs text-slate-400 block mt-0.5">{cat.desc}</span>
-                    </div>
+                {/* 1. Title Row: Icon + Full Title (takes 100% width, never truncated) */}
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                    <Icon className="w-4.5 h-4.5 text-blue-400" />
                   </div>
+                  <h4 className="font-bold text-white text-base leading-snug">
+                    {cat.title}
+                  </h4>
+                </div>
 
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-xl border whitespace-nowrap shrink-0 ${scoreBadgeColor}`}>
-                    {score !== null ? `${score}/10` : 'N/A'}
+                {/* 2. Description Row */}
+                <p className="text-xs text-slate-400 mb-3 leading-normal">
+                  {cat.desc}
+                </p>
+
+                {/* 3. Score Badge Row (placed below title and description) */}
+                <div className="mb-5 flex items-center">
+                  <span className={`text-xs font-extrabold px-3 py-1 rounded-xl border inline-flex items-center gap-1 shadow-sm ${scoreBadgeColor}`}>
+                    <span className="opacity-75 font-normal">Score:</span>
+                    <span>{score !== null ? `${score} / 10` : 'N/A'}</span>
                   </span>
                 </div>
 
-                <div className="space-y-2 mt-4">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">
+                {/* 4. Evidence Signals List */}
+                <div className="space-y-2">
+                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
                     Evidence Signals:
                   </span>
                   {evidenceList.length > 0 ? (

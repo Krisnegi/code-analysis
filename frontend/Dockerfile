@@ -21,6 +21,7 @@ EXPOSE 5173
 
 RUN echo $'server {\n\
     listen 5173;\n\
+    add_header Cache-Control "no-store, no-cache, must-revalidate";\n\
     location / {\n\
         root /usr/share/nginx/html;\n\
         index index.html;\n\
