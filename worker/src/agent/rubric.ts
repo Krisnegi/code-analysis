@@ -40,13 +40,30 @@ export function computeRubricScores(evidence: CollectedEvidence) {
     } else {
       const covStr = evidence.testRunner.coverage || '0%'
       const covNum = parseInt(covStr.replace('%', ''), 10) || 0
-      if (covNum >= 80) testCoverageScore = 10
-      else if (covNum >= 50) testCoverageScore = 7
-      else if (covNum > 0) testCoverageScore = 4
-      else testCoverageScore = 0
+      const passed = evidence.testRunner.passed || 0
+      const failed = evidence.testRunner.failed || 0
+      const testFileCount = evidence.testRunner.testFileCount || 0
 
-      testCoverageEvidence.push(`Framework: ${evidence.testRunner.framework || 'unknown'}, ${covStr} coverage`)
-      testCoverageEvidence.push(`Passed: ${evidence.testRunner.passed || 0}, Failed: ${evidence.testRunner.failed || 0}`)
+      if (covNum > 0 || passed > 0) {
+        if (covNum >= 80) testCoverageScore = 10
+        else if (covNum >= 50) testCoverageScore = 7
+        else testCoverageScore = 4
+
+        testCoverageEvidence.push(`Framework: ${evidence.testRunner.framework || 'unknown'}, ${covStr} coverage`)
+        testCoverageEvidence.push(`Passed: ${passed}, Failed: ${failed}`)
+      } else if (testFileCount > 0 && evidence.testRunner.framework !== 'none') {
+        // Honest fallback: Evaluate Test Suite Density when runtime execution is blocked by uninstalled dependencies
+        if (testFileCount >= 20) testCoverageScore = 8
+        else if (testFileCount >= 5) testCoverageScore = 6
+        else testCoverageScore = 4
+
+        testCoverageEvidence.push(`Framework: ${evidence.testRunner.framework}, ${testFileCount} test files detected`)
+        testCoverageEvidence.push('Runtime execution skipped (uninstalled sandbox dependencies)')
+      } else {
+        testCoverageScore = 0
+        testCoverageEvidence.push('Framework: none, 0% coverage')
+        testCoverageEvidence.push('Passed: 0, Failed: 0')
+      }
     }
   } else {
     testCoverageEvidence.push('Test runner unavailable')

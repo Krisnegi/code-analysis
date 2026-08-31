@@ -3,6 +3,7 @@ FROM node:20-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
+    golang-go \
     jq \
     procps \
     cloc \
@@ -13,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react --omit=dev
+RUN npm install -g eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react mocha jest vitest ava --omit=dev
 
 RUN ARCH=$(uname -m) && \
     if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
@@ -23,7 +24,7 @@ RUN ARCH=$(uname -m) && \
     fi && \
     curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v8.18.2/gitleaks_8.18.2_linux_${GITLEAKS_ARCH}.tar.gz" | tar -xz -C /usr/local/bin gitleaks
 
-RUN pip3 install --no-cache-dir pylint pip-audit --break-system-packages || pip3 install --no-cache-dir pylint pip-audit
+RUN pip3 install --no-cache-dir pylint pip-audit pytest --break-system-packages || pip3 install --no-cache-dir pylint pip-audit pytest
 
 COPY scripts/ /scripts/
 RUN chmod +x /scripts/*.sh
