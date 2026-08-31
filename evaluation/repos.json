@@ -1,0 +1,72 @@
+[
+  {
+    "id": "repo1",
+    "name": "expressjs/express",
+    "url": "https://github.com/expressjs/express",
+    "language": "JavaScript",
+    "description": "Fast, unopinionated, minimalist web framework for Node.js"
+  },
+  {
+    "id": "repo2",
+    "name": "pallets/flask",
+    "url": "https://github.com/pallets/flask",
+    "language": "Python",
+    "description": "The Python micro framework for building web applications"
+  },
+  {
+    "id": "repo3",
+    "name": "axios/axios",
+    "url": "https://github.com/axios/axios",
+    "language": "JavaScript/TypeScript",
+    "description": "Promise based HTTP client for the browser and node.js"
+  },
+  {
+    "id": "repo4",
+    "name": "lodash/lodash",
+    "url": "https://github.com/lodash/lodash",
+    "language": "JavaScript",
+    "description": "A modern JavaScript utility library delivering modularity, performance & extras"
+  },
+  {
+    "id": "repo5",
+    "name": "sindresorhus/is",
+    "url": "https://github.com/sindresorhus/is",
+    "language": "TypeScript",
+    "description": "Type check values with TypeScript support"
+  },
+  {
+    "id": "repo6",
+    "name": "facebook/react",
+    "url": "https://github.com/facebook/react",
+    "language": "JavaScript",
+    "description": "The library for web and native user interfaces"
+  },
+  {
+    "id": "repo7",
+    "name": "huggingface/transformers",
+    "url": "https://github.com/huggingface/transformers",
+    "language": "Python",
+    "description": "State-of-the-art Machine Learning for Pytorch, TensorFlow, and JAX"
+  },
+  {
+    "id": "repo8",
+    "name": "gin-gonic/gin",
+    "url": "https://github.com/gin-gonic/gin",
+    "language": "Go",
+    "description": "Gin is a HTTP web framework written in Go"
+  },
+  {
+    "id": "repo9",
+    "name": "BurntSushi/ripgrep",
+    "url": "https://github.com/BurntSushi/ripgrep",
+    "language": "Rust",
+    "description": "ripgrep recursively searches directories for a regex pattern"
+  },
+  {
+    "id": "repo10",
+    "name": "torvalds/linux",
+    "url": "https://github.com/torvalds/linux",
+    "language": "C",
+    "description": "Linux kernel source tree"
+  }
+]

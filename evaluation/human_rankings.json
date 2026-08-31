@@ -1,0 +1,15 @@
+{
+  "ranking": [
+    "repo5",
+    "repo1",
+    "repo2",
+    "repo4",
+    "repo3",
+    "repo9",
+    "repo8",
+    "repo7",
+    "repo6",
+    "repo10"
+  ],
+  "notes": "Ordinal ranking set by human reviewer prior to baseline or agent execution. repo5 (sindresorhus/is) is rated highest for tight TS types & 100% test coverage; repo10 (linux) is rated lowest due to monolithic complexity and C language non-standard test tooling."
+}

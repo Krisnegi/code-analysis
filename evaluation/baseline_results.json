@@ -1,0 +1,351 @@
+{
+  "method": "baseline",
+  "timestamp": "2026-08-31T06:41:19.814Z",
+  "spearmanCorrelation": 0.4667,
+  "rankings": [
+    "repo2",
+    "repo3",
+    "repo4",
+    "repo5",
+    "repo6",
+    "repo7",
+    "repo8",
+    "repo1",
+    "repo9",
+    "repo10"
+  ],
+  "humanRankings": [
+    "repo5",
+    "repo1",
+    "repo2",
+    "repo4",
+    "repo3",
+    "repo9",
+    "repo8",
+    "repo7",
+    "repo6",
+    "repo10"
+  ],
+  "scores": {
+    "repo1": {
+      "repoUrl": "https://github.com/expressjs/express",
+      "method": "baseline",
+      "totalScore": 29,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 2,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:08.379Z"
+    },
+    "repo2": {
+      "repoUrl": "https://github.com/pallets/flask",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:09.238Z"
+    },
+    "repo3": {
+      "repoUrl": "https://github.com/axios/axios",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:10.267Z"
+    },
+    "repo4": {
+      "repoUrl": "https://github.com/lodash/lodash",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:11.097Z"
+    },
+    "repo5": {
+      "repoUrl": "https://github.com/sindresorhus/is",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:11.911Z"
+    },
+    "repo6": {
+      "repoUrl": "https://github.com/facebook/react",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:13.775Z"
+    },
+    "repo7": {
+      "repoUrl": "https://github.com/huggingface/transformers",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:14.884Z"
+    },
+    "repo8": {
+      "repoUrl": "https://github.com/gin-gonic/gin",
+      "method": "baseline",
+      "totalScore": 32,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 5,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:15.830Z"
+    },
+    "repo9": {
+      "repoUrl": "https://github.com/BurntSushi/ripgrep",
+      "method": "baseline",
+      "totalScore": 29,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 2,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:16.626Z"
+    },
+    "repo10": {
+      "repoUrl": "https://github.com/torvalds/linux",
+      "method": "baseline",
+      "totalScore": 29,
+      "categories": {
+        "codeQuality": {
+          "score": 5,
+          "evidence": "Estimated from file tree"
+        },
+        "testCoverage": {
+          "score": 2,
+          "evidence": "File tree scan"
+        },
+        "architecture": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "dependencies": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "maintainability": {
+          "score": 5,
+          "evidence": "Default baseline estimate"
+        },
+        "documentation": {
+          "score": 7,
+          "evidence": "README length check"
+        }
+      },
+      "timestamp": "2026-08-31T06:41:19.813Z"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "code-analysis-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "docker compose up --build",
+    "build": "pnpm --filter api build && pnpm --filter worker build && pnpm --filter frontend build",
+    "benchmark": "pnpm --filter worker benchmark",
+    "test": "pnpm --filter api test && pnpm --filter worker test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
