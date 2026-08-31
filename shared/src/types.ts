@@ -30,10 +30,10 @@ export interface TrajectoryStep {
   type: 'agent_step' | 'human_checkpoint' | 'retry_event' | 'provider_fallback'
   thought?: string
   action?: string
-  actionInput?: unknown
-  observation?: unknown
+  actionInput?: any
+  observation?: any
   event?: 'approval_requested' | 'approved' | 'skipped' | 'timeout'
-  context?: unknown
+  context?: any
   target?: string
   attempt?: number
   reason?: string
