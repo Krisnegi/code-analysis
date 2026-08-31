@@ -9,8 +9,21 @@ const router = Router()
 router.get('/trajectory/:id', async (req: Request, res: Response) => {
   try {
     const jobId = req.params.id
-    const repoUrl = await redisConnection.get(`job:${jobId}:repo_url`)
 
+    // 1. First check Redis for cached trajectory JSON array
+    const cachedTrajectory = await redisConnection.get(`job:${jobId}:trajectory`)
+    if (cachedTrajectory) {
+      const steps: TrajectoryStep[] = JSON.parse(cachedTrajectory)
+      res.json({
+        jobId,
+        stepCount: steps.length,
+        trajectory: steps
+      })
+      return
+    }
+
+    // 2. Fall back to reading trajectory file from disk
+    const repoUrl = await redisConnection.get(`job:${jobId}:repo_url`)
     let trajectoryPath = ''
     const trajectoriesDir = path.resolve(__dirname, '../../../trajectories')
 

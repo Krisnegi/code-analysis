@@ -30,7 +30,7 @@ export async function runCodeAnalysisAgent(
   redisConnection: Redis
 ): Promise<AnalysisReport> {
   const repoSlug = repoUrl.split('github.com/')[1].replace('/', '_')
-  const trajectoryLogger = new TrajectoryLogger(repoSlug)
+  const trajectoryLogger = new TrajectoryLogger(repoSlug, jobId, redisConnection)
 
   trajectoryLogger.logStep({
     type: 'agent_step',
