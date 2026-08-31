@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { runBaselineAnalysis, BaselineReport } from './baselineAnalyzer'
+import { runBaselineAnalysis, BaselineReport } from '@code-analysis/shared'
 
 interface RepoItem {
   id: string

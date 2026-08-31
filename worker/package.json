@@ -9,6 +9,7 @@
     "benchmark": "ts-node src/baseline/runBaselineBenchmark.ts"
   },
   "dependencies": {
+    "@code-analysis/shared": "workspace:*",
     "@langchain/core": "^0.3.40",
     "@langchain/google-genai": "^0.1.9",
     "@langchain/groq": "^0.1.3",

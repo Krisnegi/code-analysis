@@ -8,6 +8,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@code-analysis/shared": "workspace:*",
     "bullmq": "^5.41.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
